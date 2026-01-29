@@ -86,17 +86,19 @@
       form.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        const message = formatMessage(messageInput.value);
-        if (!message) return;
+        const rawMessage = messageInput.value.trim();
+        if (!rawMessage) return;
 
-        addMessage('user', message);
+        const formattedMessage = formatMessage(rawMessage);
+
+        addMessage('user', rawMessage);
         messageInput.value = '';
         status.textContent = '...';
         sendBtn.disabled = true;
         hasSentMessage = true;
 
         setTimeout(function () {
-          addMessage('assistant', message);
+          addMessage('assistant', formattedMessage);
           status.textContent = '';
           sendBtn.disabled = false;
         }, 600);
