@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DE-BUG-DUCK</title>
+    <link rel="stylesheet" href="../static/main.css">
+  </head>
+  <body>
+    <header class="header">DE-BUG-DUCK</header>
+
+    <main class="main">
+      <section class="messages" id="messages"></section>
+
+      <form class="form" id="chat-form">
+        <textarea
+          name="message"
+          id="message-input"
+          placeholder="Ask a question or share a thought..."
+          required
+        ></textarea>
+        <button type="submit" id="send-btn">Send</button>
+      </form>
+
+      <div class="status" id="status"></div>
+    </main>
+
+    <script>
+      const form = document.getElementById('chat-form');
+      const messageInput = document.getElementById('message-input');
+      const messages = document.getElementById('messages');
+      const status = document.getElementById('status');
+      const sendBtn = document.getElementById('send-btn');
+      const instructionalText =
+        'Welcome to DE-BUG-DUCK — a web rubber duck.\n' +
+        'Describe your problem, and it will echo back what you say.\n' +
+        'Press Send to start.';
+      let hasSentMessage = false;
+
+      function addSystemMessage(text) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'message system';
+
+        const roleLabel = document.createElement('div');
+        roleLabel.className = 'role';
+        roleLabel.textContent = 'INFO';
+
+        const body = document.createElement('div');
+        body.textContent = text;
+
+        wrapper.appendChild(roleLabel);
+        wrapper.appendChild(body);
+        messages.appendChild(wrapper);
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+      function formatMessage(text) {
+        const trimmed = text.trim();
+        if (!trimmed) return '';
+        const withCapital = trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+        const replaceStandaloneI = withCapital.replace(/\bi\b/g, 'I');
+        const lastChar = replaceStandaloneI.slice(-1);
+        const needsPunctuation = !['.', '!', '?'].includes(lastChar);
+        return needsPunctuation ? `${replaceStandaloneI}.` : replaceStandaloneI;
+      }
+
+      function addMessage(role, text) {
+        const wrapper = document.createElement('div');
+        wrapper.className = `message ${role}`;
+
+        const roleLabel = document.createElement('div');
+        roleLabel.className = 'role';
+        roleLabel.textContent = role === 'assistant' ? 'DE-BUG-DUCK' : 'YOU';
+
+        const body = document.createElement('div');
+        body.textContent = text;
+
+        wrapper.appendChild(roleLabel);
+        wrapper.appendChild(body);
+        messages.appendChild(wrapper);
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+      addSystemMessage(instructionalText);
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const message = formatMessage(messageInput.value);
+        if (!message) return;
+
+        addMessage('user', message);
+        messageInput.value = '';
+        status.textContent = '...';
+        sendBtn.disabled = true;
+        hasSentMessage = true;
+
+        setTimeout(function () {
+          addMessage('assistant', message);
+          status.textContent = '';
+          sendBtn.disabled = false;
+        }, 1200);
+      });
+    </script>
+  </body>
+</html>

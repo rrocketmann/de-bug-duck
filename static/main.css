@@ -1,0 +1,119 @@
+@font-face {
+  font-family: "ColfaxAI";
+  src:
+    url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff2) format("woff2"),
+    url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff) format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "ColfaxAI", Helvetica, Arial, sans-serif;
+  background: #fff9db;
+  color: #2f2f2f;
+  line-height: 1.5;
+}
+
+.header {
+  width: 100%;
+  padding: 16px 20px;
+  background: #ffe9a3;
+  border-bottom: 1px solid #f2d675;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.messages {
+  background: #fffdf0;
+  border: 1px solid #f1d98a;
+  padding: 16px;
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.message {
+  padding: 12px;
+  border: 1px solid #f1d98a;
+  background: #fff4c7;
+}
+
+.message.user {
+  background: #ffeeb0;
+}
+
+.message.assistant {
+  background: #fff7d1;
+}
+
+.message .role {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #4a4a4a;
+}
+
+.form {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+}
+
+textarea {
+  flex: 1;
+  min-height: 80px;
+  max-height: 200px;
+  padding: 12px;
+  border: 1px solid #f1d98a;
+  background: #fffdf0;
+  resize: vertical;
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  width: 120px;
+  border: 1px solid #b88b2a;
+  background: #e0b954;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 12px;
+}
+
+button:disabled {
+  background: #f0d99a;
+  border-color: #e3c67b;
+  cursor: not-allowed;
+}
+
+.status {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #8a6a1a;
+}
+
+@media (max-width: 640px) {
+  .form {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}
