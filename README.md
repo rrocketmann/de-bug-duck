@@ -1,2 +1,38 @@
 # de-bug-duck
-##### Have youe ver had issues with your program in which you just didn't know what was wrong? Perhaps you also are away from your beloved debuging rubber duck, de-bug-duck web application is the solution. It's really just a virtual duck you cna talk to.
+
+de-bug-duck is a small static web app that acts like a virtual debugging rubber duck.
+
+## Run Locally
+
+Because this project is static HTML/CSS/JS, you can serve it with any static file server.
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open `http://localhost:8000`.
+
+## Deploy To Render (Static Site)
+
+This repository includes a `render.yaml` blueprint configured for Render static-site deployment.
+
+### Option 1: Blueprint Deploy (recommended)
+
+1. Push this repository to GitHub.
+2. In Render, click `New +` -> `Blueprint`.
+3. Select this repository.
+4. Render will detect `render.yaml` and create the static site.
+
+### Option 2: Manual Static Site Setup
+
+1. In Render, click `New +` -> `Static Site`.
+2. Connect this repository.
+3. Use these values:
+	- Build Command: *(leave empty)*
+	- Publish Directory: `.`
+
+## Notes
+
+- Main entry file: `index.html`
+- Static assets: `static/`
+- No backend runtime is required.
